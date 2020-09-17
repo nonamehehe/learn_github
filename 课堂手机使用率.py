@@ -9,6 +9,7 @@ import openpyxl
 f = r'C:\Users\Administrator\Desktop\github\python-project\重庆公共运输职业学院课堂手机使用情况.xlsx'
 df = pd.read_excel(f)
 df1 = df.shift(1)
+df1.columns = ["教师管理增长率","学生管理增长率","制度管理增长率"]
 
 df.plot(kind='bar')
 df1.plot()

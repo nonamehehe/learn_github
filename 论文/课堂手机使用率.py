@@ -8,14 +8,29 @@ import openpyxl
 
 f = r'C:\Users\Administrator\Desktop\github\python-project\重庆公共运输职业学院课堂手机使用情况.xlsx'
 df = pd.read_excel(f)
+
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+df.columns = ['0',"教师管理增长率","学生管理增长率","制度管理增长率"]
+df.index = df.values[:,0]
+df.drop(['0'],axis=1,inplace=True)
+
 df1 = df.shift(1)
-df1.columns = ["教师管理增长率","学生管理增长率","制度管理增长率"]
+
+df2=df.mean()
+df2.index = ["教师管理月平均使用率","学生管理月平均使用率","制度管理月平均使用率"]
+df2.plot()
+
+df3=df.std()
+df3.index = ["教师管理月使用率方差","学生管理月使用率方差","制度管理月使用率方差"]
+df3.plot()
+
+#df1.columns = ["教师管理增长率","学生管理增长率","制度管理增长率"]
 
 df.plot(kind='bar')
 df1.plot()
 
-plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
 
 
 fig = plt.figure()
@@ -28,7 +43,6 @@ plt.yticks(np.linspace(0,1,8,endpoint=True))#y轴的分刻度
 plt.title('重庆公共运输职业学院手机使用率数据')
 
 plt.bar(df.values,color="green")
-
 plt.plot(x1, df.values, color='red', linewidth=2.5, linestyle='-', label="使用率")
 #    plt.plot(x1, y2, color='b', linewidth=2.5, linestyle='-', label="BTC价格")
 plt.legend(loc='upper left')
